@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CreateTaskModal from "./CreateTaskModal";
+import TaskCard from "./TaskCard";
 
 const ToDoList = () => {
   const [modal, setModal] = useState(false);
@@ -27,9 +28,7 @@ const ToDoList = () => {
       </div>
       <div className="task-container">
         {taskList.map((task, index) => (
-          <li key={index}>
-            {index}: {task.Name}
-          </li>
+          <TaskCard key={index} taskObj={task} index={index} />
         ))}
       </div>
       <CreateTaskModal toogle={toogle} modal={modal} save={saveTask} />
