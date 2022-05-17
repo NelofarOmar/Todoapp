@@ -4,7 +4,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
 import { Card, CardText, CardTitle } from "reactstrap";
 
-const TaskCard = ({ taskObj, index }) => {
+const TaskCard = ({ taskObj, index, deleteHandler }) => {
+  const handleDelete = () => {
+    deleteHandler(taskObj, index);
+  };
+
   const colors = [
     {
       primaryColor: "#c014e4",
@@ -44,7 +48,12 @@ const TaskCard = ({ taskObj, index }) => {
           <Button variant="contained" endIcon={<EditIcon />}>
             Edit
           </Button>{" "}
-          <Button color="error" variant="contained" endIcon={<DeleteIcon />}>
+          <Button
+            onClick={handleDelete}
+            color="error"
+            variant="contained"
+            endIcon={<DeleteIcon />}
+          >
             Delete
           </Button>
         </div>
