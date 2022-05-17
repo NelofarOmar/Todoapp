@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CreateTaskModal from "./CreateTaskModal";
 import ConfirmModal from "./ConfirmModal";
 import TaskCard from "./TaskCard";
@@ -22,6 +22,14 @@ const ToDoList = () => {
 
   const [taskList, setTaskList] = useState([]);
 
+  useEffect(() => {
+    let arr = localStorage.getItem("taskList");
+    if (arr) {
+      let obj = JSON.parse(arr);
+      setTaskList(obj);
+    }
+  }, []);
+
   const taskToDelete = (taskObj, index) => {
     setTaskObj(taskObj);
     setIndex(index);
@@ -33,7 +41,7 @@ const ToDoList = () => {
     let temp = taskList;
     temp.push(taskObj);
     setTaskList(temp);
-    console.log(JSON.stringify(taskList));
+    saveToSource();
   };
 
   const deleteTask = (index) => {
@@ -41,9 +49,9 @@ const ToDoList = () => {
     let temp = taskList;
     temp.splice(index, 1);
     setTaskList(temp);
-    console.log(JSON.stringify(taskList));
     setTaskObj(null);
     setIndex(null);
+    saveToSource();
   };
 
   const openEdit = (taskObj, index) => {
@@ -60,6 +68,11 @@ const ToDoList = () => {
     temp.push(task);
     setTaskList(temp);
     setTaskObj(null);
+    saveToSource();
+  };
+
+  const saveToSource = () => {
+    localStorage.setItem("taskList", JSON.stringify(taskList));
   };
 
   return (
