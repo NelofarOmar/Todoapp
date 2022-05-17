@@ -1,0 +1,41 @@
+.header{
+    height: auto;
+    padding-bottom: 10px;
+    width: 100%;
+    background-color: #e9eee9;
+    padding-top: 10px;
+  }
+  
+  .card-wrapper{
+    width: 400px; 
+    height: 200px; 
+    box-shadow: 0px 3px 50px #A5A5A5;
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+    /* margin-right: 20px; */
+    margin-left: 30px;
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+  
+  .task-container{
+    height: 600px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #F6F7F8;
+    padding : 40px 100px;
+  }
+  
+  .card-text{
+    height: 60%;
+  }
+  
+  .card-btns{
+    align-self: flex-end;
+  }
+  
+  .card-btn{
+    margin: auto !important;
+  }
