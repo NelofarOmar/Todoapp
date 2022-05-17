@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import CreateTaskModal from "./CreateTaskModal";
-import TaskCard from "./TaskCard";
 import ConfirmModal from "./ConfirmModal";
+import TaskCard from "./TaskCard";
+import EditTask from "./EditTask";
 
 const ToDoList = () => {
   const [modal, setModal] = useState(false);
   const [confirmModal, setConfirmModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
   const [index, setIndex] = useState(null);
   const [taskObj, setTaskObj] = useState(null);
-
   const toogle = () => {
     setModal(!modal);
   };
-
   const toogleConfirm = () => {
     setConfirmModal(!confirmModal);
+  };
+  const toogleEdit = () => {
+    setEditModal(!editModal);
   };
 
   const [taskList, setTaskList] = useState([]);
@@ -43,6 +46,22 @@ const ToDoList = () => {
     setIndex(null);
   };
 
+  const openEdit = (taskObj, index) => {
+    console.log("at open " + JSON.stringify(taskObj));
+    setTaskObj(taskObj);
+    setIndex(index);
+    toogleEdit();
+    console.log(taskObj, index);
+  };
+  const updateTask = (task, index) => {
+    setEditModal(false);
+    let temp = taskList;
+    temp.splice(index, 1);
+    temp.push(task);
+    setTaskList(temp);
+    setTaskObj(null);
+  };
+
   return (
     <>
       <div className="header text-center ">
@@ -55,12 +74,14 @@ const ToDoList = () => {
         {taskList.map((task, index) => (
           <TaskCard
             key={index}
-            deleteHandler={taskToDelete}
             taskObj={task}
             index={index}
+            editHandler={openEdit}
+            deleteHandler={taskToDelete}
           />
         ))}
       </div>
+      <CreateTaskModal toogle={toogle} modal={modal} save={saveTask} />
       <ConfirmModal
         toogle={toogleConfirm}
         modal={confirmModal}
@@ -68,7 +89,13 @@ const ToDoList = () => {
         index={index}
         taskObj={taskObj}
       />
-      <CreateTaskModal toogle={toogle} modal={modal} save={saveTask} />
+      <EditTask
+        toogle={toogleEdit}
+        modal={editModal}
+        editHandler={updateTask}
+        index={index}
+        taskObj={taskObj}
+      />
     </>
   );
 };

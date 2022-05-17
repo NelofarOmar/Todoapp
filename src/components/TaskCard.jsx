@@ -4,7 +4,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
 import { Card, CardText, CardTitle } from "reactstrap";
 
-const TaskCard = ({ taskObj, index, deleteHandler }) => {
+const TaskCard = ({ taskObj, index, deleteHandler, editHandler }) => {
+  const handleEdit = () => {
+    editHandler(taskObj, index);
+  };
+
   const handleDelete = () => {
     deleteHandler(taskObj, index);
   };
@@ -45,7 +49,11 @@ const TaskCard = ({ taskObj, index, deleteHandler }) => {
         <CardTitle tag="h5">{taskObj.Name}</CardTitle>
         <CardText className="card-text">{taskObj.Description}</CardText>
         <div className="card-btns">
-          <Button variant="contained" endIcon={<EditIcon />}>
+          <Button
+            variant="contained"
+            onClick={handleEdit}
+            endIcon={<EditIcon />}
+          >
             Edit
           </Button>{" "}
           <Button
